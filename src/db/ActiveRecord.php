@@ -5,6 +5,7 @@ namespace springchun\yii2\core\db;
 use springchun\yii2\core\base\ModelException;
 use springchun\yii2\core\base\ModelTrait;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\mutex\MysqlMutex;
 
 /**
@@ -105,6 +106,41 @@ class ActiveRecord extends \yii\db\ActiveRecord
     }
 
     /**
+     * 查询attributes
+     * @param null $query
+     * @return array
+     */
+    public function queryAttribute($query = null)
+    {
+        if (in_array($query, [null, '*'])) {
+            return $this->attributes();
+        } else if (is_string($query)) {
+            $result = [];
+            $attributes = $this->attributes();
+            foreach (explode(',', $query) as $query) {
+                if (strpos($query, '*') !== false) {
+                    $regexp = '#^' . strtr($query, ['*' => '.*']) . '$#';
+                    foreach ($attributes as $attribute) {
+                        if (preg_match($regexp, $attribute)) {
+                            $result[] = $attribute;
+                        }
+                    }
+                } else if (strpos($query, '-')) {
+                    $tmp = explode('-', $query);
+                    if (($start = array_search($tmp[0], $attributes)) !== false && ($end = array_search($tmp[1], $attributes)) !== false) {
+                        $result = array_merge($result, array_slice($attributes, $start, $end - $start + 1));
+                    } else {
+                        throw new InvalidArgumentException("无效的查询参数 $query");
+                    }
+                } else {
+                    $result[] = $query;
+                }
+            }
+            return array_unique($result);
+        }
+    }
+
+    /**
      * @param $fn
      * @return bool|mixed
      * @throws \Throwable
@@ -199,6 +235,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
             return parent::transactions();
         }
     }
+
     /**
      * 得到乐观锁字段名称
      * @return string|null
