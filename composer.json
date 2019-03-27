@@ -1,0 +1,19 @@
+{
+  "name": "springchun/yii2-core",
+  "description": "",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "wangchun",
+      "email": "wangchun@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "springchun\\yii2\\core\\": "src"
+    }
+  }
+}
