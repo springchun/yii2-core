@@ -29,11 +29,30 @@ class AliasAttributeBehavior extends Behavior
 
     /**
      * @param string $name
+     * @param bool   $checkVars
+     * @return bool
+     */
+    public function canSetProperty($name, $checkVars = true)
+    {
+        return $this->_hasAttribute($name);
+    }
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function __get($name)
     {
         return ArrayHelper::getValue($this->owner,$this->attributes[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function __set($name, $value)
+    {
+        $this->owner->{$this->attributes[$name]} = $value;
     }
 
     /**
