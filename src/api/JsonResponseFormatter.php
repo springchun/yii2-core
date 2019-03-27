@@ -28,7 +28,13 @@ class JsonResponseFormatter extends \yii\web\JsonResponseFormatter
                     'data' => null
                 ];
             } else {
-                $data = (new Serializer())->serialize($response->data);
+                $data = (
+                new Serializer(
+                    [
+                        'collectionEnvelope' => 'items'
+                    ]
+                )
+                )->serialize($response->data);
                 if ($response->isSuccessful) {
                     $response->data = [
                         'code' => 0,
