@@ -3,6 +3,9 @@
 namespace springchun\yii2\core\db;
 
 use function implode;
+use springchun\yii2\core\db\filters\BaseFilterRule;
+use springchun\yii2\core\db\filters\ClosureFilterRule;
+use yii\helpers\ArrayHelper;
 use yii\base\InvalidCallException;
 
 class ActiveQuery extends \yii\db\ActiveQuery
