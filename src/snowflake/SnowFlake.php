@@ -80,12 +80,11 @@ class SnowFlake extends Component
         $hex = str_pad($hex, 15, '0', STR_PAD_LEFT);
         $hex = str_pad($hex, 16, '5', STR_PAD_LEFT);
         $rand = md5(microtime(1));
-        return implode('-', [
+        return implode('', [
             substr($hex, 0, 8),
             substr($hex, 8, 4),
             substr($hex, 12, 4),
-            substr($rand, 0, 4),
-            substr($rand, 4, 8)
+            substr($rand, 0, 4)
         ]);
     }
 
