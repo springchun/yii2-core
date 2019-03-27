@@ -9,6 +9,7 @@ use springchun\yii2\core\db\ActiveQuery;
  */
 class ClosureFilterRule extends BaseFilterRule
 {
+    /** @var callable */
     public $closure;
     public function execute(ActiveQuery $query, $attribute, $value)
     {
