@@ -11,4 +11,15 @@ class ModelException extends Exception
 {
     /** @var Model */
     public $model;
+
+    /**
+     * @param Model $model
+     * @return ModelException
+     */
+    public static function createException(Model $model)
+    {
+        $exception = new static();
+        $exception->model = $model;
+        return $exception;
+    }
 }
