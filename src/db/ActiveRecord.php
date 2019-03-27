@@ -189,13 +189,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
         $attributes = $this->attributes();
         if ($insert) {
             foreach (self::CREATE_ATTRIBUTES as $attribute) {
-                if (!in_array($attribute, $attributes) && !$this->$attribute) {
+                if (in_array($attribute, $attributes) && !$this->$attribute) {
                     $this->$attribute = time();
                 }
             }
         }
         foreach (self::UPDATE_ATTRIBUTES as $attribute) {
-            if (!in_array($attribute, $attributes) && !$this->$attribute) {
+            if (in_array($attribute, $attributes) && !$this->$attribute) {
                 $this->$attribute = time();
             }
         }
