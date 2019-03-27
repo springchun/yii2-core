@@ -4,6 +4,7 @@ namespace springchun\yii2\core\db;
 
 use springchun\yii2\core\base\ModelException;
 use springchun\yii2\core\base\ModelTrait;
+use springchun\yii2\core\db\filters\ColumnFilterRule;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\mutex\MysqlMutex;
